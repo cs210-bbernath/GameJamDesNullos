@@ -7,8 +7,8 @@ public class goalMoveScript : MonoBehaviour
     public float moveSpeed = 4;
     public float deadZone = -20;
 
-    //public Deplacement player1;
-    //public Deplacement player2;
+    public Deplacement player_1;
+    public Deplacement player_2;
 
     public LogicScript logic;
 
@@ -16,8 +16,8 @@ public class goalMoveScript : MonoBehaviour
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
-        //player1 = GameObject.FindGameObjectWithTag("Character1").GetComponent<Deplacement>();
-        //player2 = GameObject.FindGameObjectWithTag("Character2").GetComponent<Deplacement>();
+        player_1 = GameObject.FindGameObjectWithTag("Character1").GetComponent<Deplacement>();
+        player_2 = GameObject.FindGameObjectWithTag("Character2").GetComponent<Deplacement>();
     }
 
     // Update is called once per frame
@@ -32,12 +32,11 @@ public class goalMoveScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*
-        if (collision.gameObject.CompareTag("Character1") && player1.hasTheBall){
+        if (collision.gameObject.CompareTag("Character1") && player_1.hasTheBall){
             logic.addScore1();
-        } else if (collision.gameObject.CompareTag("Character2") && player2.hasTheBall){
+        } else if (collision.gameObject.CompareTag("Character2") && player_2.hasTheBall){
             logic.addScore2();
         }
-        */
+        Destroy(gameObject);
     }
 }

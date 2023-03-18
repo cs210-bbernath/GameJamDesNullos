@@ -22,6 +22,11 @@ public class Deplacement : MonoBehaviour
 
     public float marging = 0.1F;
 
+    public float maxImmunity = 0.5f;
+    private float immunityTimer;
+    public bool immune = false;
+
+
     public Color ballColor = Color.white;
     public SpriteRenderer spriteRenderer;
     private Color startingColor = Color.clear;
@@ -47,6 +52,8 @@ public class Deplacement : MonoBehaviour
         } else if (player == 1){
             otherPlayer = GameObject.FindGameObjectWithTag("Character1").GetComponent<Deplacement>();
         }
+
+        immunityTimer = maxImmunity;
         
         startingColor = Color.red;//spriteRenderer.color;
         //RB = GetComponent<Rigidbody2D>();
@@ -60,7 +67,6 @@ public class Deplacement : MonoBehaviour
         if (isDashing) {
             return;
         }
-
 
         if (player == 1) {
             Modularity("w", "a", "d");
@@ -94,6 +100,14 @@ public class Deplacement : MonoBehaviour
             spriteRenderer.color = startingColor;
         }
 
+        if(immune){
+            if(immunityTimer > 0){
+                immunityTimer -= Time.deltaTime;
+            } else {
+                immunityTimer = maxImmunity;
+                immune=false;
+            }
+        }
     }
 
     private void Modularity(string keyup, string keyleft, string keyright) {
@@ -126,7 +140,7 @@ public class Deplacement : MonoBehaviour
 
     public void getTheBall(){
         hasTheBall = !hasTheBall;
-        Debug.Log("GET THE BALL !!");
+        immune = true;
     }
 
     public void changeTheBall(){
@@ -168,7 +182,7 @@ public class Deplacement : MonoBehaviour
         }
         
         if (collision.gameObject.CompareTag("TriggerBall")){
-            if (isDashing){
+            if (isDashing && !otherPlayer.immune){
                 //Debug.Log("IN dashing");
                 if (!hasTheBall && otherPlayer.hasTheBall){
                     getTheBall();
