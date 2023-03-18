@@ -5,7 +5,7 @@ using UnityEngine;
 public class buildingRedMoveScript : MonoBehaviour
 {
     public float moveSpeed = 4;
-    public float deadZone = -20;
+    public float deadZone = -40;
 
     // Start is called before the first frame update
     void Start()
